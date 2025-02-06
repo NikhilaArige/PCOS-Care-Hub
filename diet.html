@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Planner for PCOS</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #A7C5EB, #F8EDEB);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        header {
+            background: linear-gradient(90deg, #FFA69E, #861657);
+            color: #FFF;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .big-text {
+            font-size: 3rem;
+            font-style: italic;
+            font-family: "Script MT Bold", "Lucida Handwriting", cursive;
+            color: #fff;
+            margin: 0;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            width: 100%;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f2f2f2;
+            color: #861657;
+            padding: 20px;
+            position: sticky;
+            top: 0; /* Stick to the top of the viewport */
+            height: 100vh; /* Make sure the sidebar takes up the full height */
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .sidebar a {
+            color: #861657;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            display: block;
+            text-align: center;
+            transition: background 0.3s, padding-left 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #d503f5;
+            padding-left: 20px;
+        }
+
+        .content-container {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .info-box {
+            background: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .info-box h2 {
+            color: #861657;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .info-box ul {
+            padding-left: 20px;
+            list-style: none;
+            line-height: 1.8;
+        }
+
+        .info-box ul li {
+            font-size: 1.1rem;
+            color: #5f5f5f;
+        }
+
+        .diet-buttons {
+            margin-top: 30px;
+        }
+
+        .diet-buttons input,
+        .diet-buttons button {
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #861657;
+            border-radius: 5px;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .diet-buttons input {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .diet-buttons button {
+            background-color: #c080b5;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        .diet-buttons button:hover {
+            background-color: #8f6696;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8e1f4;
+            color: #861657;
+        }
+
+        td a {
+            color: #861657;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        td a:hover {
+            color: #d503f5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="big-text">Diet Planner for PCOS</h1>
+    </header>
+
+    <div class="main-content">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <a href="login.html">Home</a>
+            <a href="diet.html">Diet</a>
+            <a href="exercise.html">Exercise</a>
+            <a href="logout.html">Logout</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="viewFoodLogs.jsp">View Food Log</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="info-box">
+                <h2>Foods to Avoid</h2>
+                <ul>
+                    <li>Processed foods (chips, candies)</li>
+                    <li>High-sugar beverages (sodas, energy drinks)</li>
+                    <li>Refined carbs (white bread, pastries)</li>
+                    <li>Trans fats (fried foods)</li>
+                    <li>Dairy (can affect hormones)</li>
+                </ul>
+
+                <h2>Foods to Eat</h2>
+                <ul>
+                    <li>High-fiber foods (broccoli, spinach)</li>
+                    <li>Healthy fats (avocados, nuts)</li>
+                    <li>Lean proteins (chicken, tofu)</li>
+                    <li>Anti-inflammatory foods (berries, turmeric)</li>
+                </ul>
+
+                <h2>PCOS Management Tips</h2>
+                <ul>
+                    <li>Exercise regularly (e.g., yoga, walking)</li>
+                    <li>Stay hydrated</li>
+                    <li>Manage stress through hobbies</li>
+                    <li>Eat balanced meals</li>
+                </ul>
+            </div>
+
+            <!-- Diet Table -->
+            <h2>Your 90-Day Diet Plan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Food Items</th>
+                    </tr>
+                </thead>
+                <tbody id="dietTableBody"></tbody>
+            </table>
+
+            <div class="diet-buttons">
+                <input type="number" id="dayInput" placeholder="Day (1-90)" min="1" max="90" />
+                <button onclick="addDay()">Add Day</button>
+            </div>
+            
+
+        </div>
+        <input type="hidden" name="userid" value="<%= session.getAttribute("userid") %>">
+    </div>
+
+    <script>
+        function addDay() {
+            const dayInput = document.getElementById('dayInput').value;
+
+            if (dayInput >= 1 && dayInput <= 90) {
+                const dietTableBody = document.getElementById('dietTableBody');
+                const row = dietTableBody.insertRow();
+                row.insertCell(0).innerText = 'Day ' + dayInput;
+                row.insertCell(1).innerHTML = `<a href="food-entry.html?day=${dayInput}">Add Food</a>`;
+            } else {
+                alert('Please enter a valid day between 1 and 90.');
+            }
+        }
+    </script>
+</body>
+</html>
